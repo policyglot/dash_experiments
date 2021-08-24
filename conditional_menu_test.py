@@ -65,11 +65,9 @@ app.layout = html.Div([
     dcc.Dropdown(id='gender-dropdown'),
     html.P('Travel Status', className="lead"),
     dcc.Dropdown(id='travel-dropdown', 
-        options=[{'label': lang, 'value': lang} for lang in travel_options],
-        value='All'),
-
-    html.Hr(),
-
+        options=[{'label': 'Acompañado/a', 'value':'travel_accompanied'},
+                 {'label': 'Solo/a', 'value': 'travel_alone'}],
+                        value='All'),
     html.Div(id='display-selected-values')
 ])
 
