@@ -57,18 +57,40 @@ app.layout = html.Div([
         dcc.Tab(label='México', value='México'),
         dcc.Tab(label='Ecuador', value='Ecuador'),
     ]),
-
-    html.Hr(),
-    html.P('Edad', className="lead"),
-    dcc.Dropdown(id='age-dropdown'),
-    html.P('Genero', className="lead"),
-    dcc.Dropdown(id='gender-dropdown'),
-    html.P('Travel Status', className="lead"),
-    dcc.Dropdown(id='travel-dropdown', 
-        options=[{'label': 'Acompañado/a', 'value':'travel_accompanied'},
-                 {'label': 'Solo/a', 'value': 'travel_alone'}],
-                        value='All'),
-    html.Div(id='display-selected-values')
+    html.Div(id='all_dropdowns', children=[
+        html.Div(className='user_dropdowns', 
+            children=[
+            html.H3('Filtros de Usuarios'),
+            html.P('Edad', className="lead"),
+            dcc.Dropdown(id='age-dropdown', value='All'),
+            html.P('Genero', className="lead"),
+            dcc.Dropdown(id='gender-dropdown',
+                value='All'),
+            html.P('Travel Status', className="lead"),
+            dcc.Dropdown(id='travel-dropdown', 
+                options=[{'label': 'Acompañado/a', 'value':'travel_accompanied'},
+                         {'label': 'Solo/a', 'value': 'travel_alone'}],
+                                value='All')
+            ],
+            style={'width': '40%'}),
+            html.Div(id='display-selected-values'),
+        html.Div(className='other_dropdowns', 
+            children=[
+                html.H3('Otros Filtros'),
+                html.P('Edad2', className="lead"),
+                dcc.Dropdown(id='age-dropdown2', value='All'),
+                html.P('Genero2', className="lead"),
+                dcc.Dropdown(id='gender-dropdown2',
+                    value='All'),
+                html.P('Travel Status2', className="lead"),
+                dcc.Dropdown(id='travel-dropdown2', 
+                    options=[{'label': 'Acompañado/a', 'value':'travel_accompanied'},
+                             {'label': 'Solo/a', 'value': 'travel_alone'}],
+                                    value='All')
+                ],
+            style={'width': '40%', 'display': 'inline-block'}),
+    ], style={'display': 'flex',
+    'justify-content': 'space-evenly'})
 ])
 
 ### Three Dropdowns Setup with link to Country
@@ -85,22 +107,6 @@ def set_age_options(selected_country):
     [Input('tabs-example', 'value')])
 def set_gender_options(selected_country):
     return [{'label': i, 'value': i} for i in gender_options[selected_country]]
-
-
-###  This set of callbacks sets the value to the first option in each
-
-@app.callback(
-    Output('age-dropdown', 'value'),
-    [Input('age-dropdown', 'options')])
-def set_age_value(available_options):
-    return available_options[0]['value']
-
-@app.callback(
-    Output('gender-dropdown', 'value'),
-    [Input('gender-dropdown', 'options')])
-def set_gender_value(available_options):
-    return available_options[0]['value']
-
 
 ### Final Message
 
